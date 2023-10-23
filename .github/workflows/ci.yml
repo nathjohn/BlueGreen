@@ -1,4 +1,7 @@
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types: [closed]
     branches:
@@ -38,7 +41,7 @@ jobs:
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: bicep/main.bicep
         deploymentName: deploy-${{ steps.params.outputs.commit_id }}
-        parameters: 'appName=${{ secrets.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.cur_prod_label }}'
+        parameters: 'bgServiceName=${{ secrets.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.cur_prod_label }} containerAppsEnvironmentName=${{ secrets.AZURE_ENVIRONMENT_NAME }}'
         deploymentMode: Incremental
         failOnStdErr: true
 
@@ -68,6 +71,6 @@ jobs:
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: bicep/main.bicep
         deploymentName: set-prod-label-${{ steps.params.outputs.commit_id }}
-        parameters: 'appName=${{ secrets.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.new_prod_label }}'
+        parameters: 'bgServiceName=${{ secrets.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.new_prod_label }}'
         deploymentMode: Incremental
         failOnStdErr: true
