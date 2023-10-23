@@ -60,6 +60,7 @@ module buildbg 'br/public:deployment-scripts/build-acr:2.0.1' = {
     gitRepositoryUrl:  'https://github.com/mbn-ms-dk/BlueGreen.git'
     dockerfileDirectory: 'BgApp'
     imageName: 'bgapp'
+    imageTag: currentCommitId
     cleanupPreference: 'Always'
   }
 }
@@ -112,6 +113,12 @@ resource bgService 'Microsoft.App/containerApps@2023-05-02-preview' = {
           }
         ]
       }
+      registries: !empty(containerRegistryName) ? [
+        {
+          server: '${containerRegistryName}.azurecr.io'
+          identity: containerUserAssignedManagedIdentityId
+        }
+      ] : []
     }
     template: {
       revisionSuffix: currentCommitId
@@ -125,7 +132,7 @@ resource bgService 'Microsoft.App/containerApps@2023-05-02-preview' = {
           }
           env: [
             {
-              name: 'REVISION_COMMIT_ID'
+              name: 'REVISION_COMMIT_ID' //only used for simple test in gh actions
               value: currentCommitId
             }
           ]
