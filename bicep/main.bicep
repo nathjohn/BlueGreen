@@ -24,7 +24,7 @@ param tags object = {
 @minLength(1)
 @maxLength(64)
 @description('CommitId for blue revision')
-param blueCommitId string
+param blueCommitId string = 'initial'
 
 @maxLength(64)
 @description('CommitId for green revision')
