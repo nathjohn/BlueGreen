@@ -36,7 +36,7 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: main/main.bicep
+        template: bicep/main.bicep
         deploymentName: deploy-${{ steps.params.outputs.commit_id }}
         parameters: 'appName=${{ secrets.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.cur_prod_label }} containerAppsEnvironmentName=${{ secrets.AZURE_ENVIRONMENT_NAME }}'
         deploymentMode: Incremental
@@ -66,7 +66,7 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: main/main.bicep
+        template: bicep/main.bicep
         deploymentName: set-prod-label-${{ steps.params.outputs.commit_id }}
         parameters: 'appName=${{ secrets.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.new_prod_label }}'
         deploymentMode: Incremental
