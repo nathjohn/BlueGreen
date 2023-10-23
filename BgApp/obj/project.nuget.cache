@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "c/Zn09Mp7aSJ7sgH0UBn8GvRadaEkOgzMrp5oLcJa8BsaHqJCitWlJp2NTwAEpW56EmhHUz+AHoLIiIX3bPapQ==",
+  "dgSpecHash": "F2lsOi2Jls+8YBP0Mawu8rbdQSSRfq0N/abr5upD1V9A+nzsjslQ1ytCYpmNi7vSJqNB13Jv29muN0VhRAx/4g==",
   "success": true,
   "projectFilePath": "C:\\Dev\\Projects\\BlueGreen\\BgApp\\BgApp.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\minielsen\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\microsoft.visualstudio.azure.containers.tools.targets.1.19.5.nupkg.sha512"
+  ],
   "logs": []
 }
