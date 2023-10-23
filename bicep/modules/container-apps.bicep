@@ -22,8 +22,21 @@ param bgPortNumber int
 @description('The name of the container registry.')
 param containerRegistryName string
 
-@description('blue commit id')
+@minLength(1)
+@maxLength(64)
+@description('CommitId for blue revision')
 param blueCommitId string
+
+@maxLength(64)
+@description('CommitId for green revision')
+param greenCommitId string = ''
+
+@maxLength(64)
+@description('CommitId for the latest deployed revision')
+param latestCommitId string = ''
+
+@description('Name of the label that gets 100% of the traffic')
+param productionLabel string = 'blue'
 
 // ------------------
 // VARIABLES
@@ -70,5 +83,8 @@ module bgService 'container-apps/bg-service.bicep' = {
     containerRegistryName: containerRegistry.name
     containerUserAssignedManagedIdentityId: containerUserAssignedManagedIdentity.id
     blueCommitId: blueCommitId
+    greenCommitId: greenCommitId
+    latestCommitId: latestCommitId
+    productionLabel: productionLabel
   }
 }
