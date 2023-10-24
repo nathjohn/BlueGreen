@@ -28,8 +28,8 @@ jobs:
       env:
         GITHUB_OUTPUT: ${{ github.workspace }}/output.txt
         GITHUB_SHA: ${{ github.sha }}
-        RESOURCE_GROUP: ${{ env.AZURE_RG }}
-        APP_NAME: ${{ env.AZURE_APP_NAME }}
+        RESOURCE_GROUP: ${{ vars.AZURE_RG }}
+        APP_NAME: ${{ vars.AZURE_APP_NAME }}
       run: ./infra/set-params.sh
       shell: bash
 
@@ -38,10 +38,10 @@ jobs:
       id: deploy
       uses: azure/arm-deploy@v1
       with:
-        resourceGroupName: ${{ env.AZURE_RG }}
+        resourceGroupName: ${{ vars.AZURE_RG }}
         template: bicep/main.bicep
         deploymentName: deploy-${{ steps.params.outputs.commit_id }}
-        parameters: 'bgServiceName=${{ env.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.cur_prod_label }} containerAppsEnvironmentName=${{ env.AZURE_ENVIRONMENT_NAME }}'
+        parameters: 'bgServiceName=${{ vars.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.cur_prod_label }} containerAppsEnvironmentName=${{ vars.AZURE_ENVIRONMENT_NAME }}'
         deploymentMode: Incremental
         failOnStdErr: true
 
@@ -49,14 +49,14 @@ jobs:
     - name: Deactivate unused revision
       id: deactivate
       run: |
-        [[ '${{ steps.params.outputs.revision_to_deactivate }}' != 'NONE' ]] && az containerapp revision deactivate --name ${{ env.AZURE_APP_NAME }} --resource-group ${{ env.AZURE_RG }} --revision ${{ steps.params.outputs.revision_to_deactivate }} || echo "No revision to deactivate"
+        [[ '${{ steps.params.outputs.revision_to_deactivate }}' != 'NONE' ]] && az containerapp revision deactivate --name ${{ vars.AZURE_APP_NAME }} --resource-group ${{ vars.AZURE_RG }} --revision ${{ steps.params.outputs.revision_to_deactivate }} || echo "No revision to deactivate"
       shell: bash
 
     # Test current release - in a real workflow this would run a test suite against a non-production label ${{ steps.params.outputs.new_prod_label }}
     - name: Test current release
       id: test
       run: |
-        result=$(curl -s https://${{ env.AZURE_APP_NAME }}---${{ steps.params.outputs.new_prod_label }}.${{ env.AZURE_APP_DNSSUFFIX}}/api/env | jq -r '.env.REVISION_COMMIT_ID')
+        result=$(curl -s https://${{ vars.AZURE_APP_NAME }}---${{ steps.params.outputs.new_prod_label }}.${{ vars.AZURE_APP_DNSSUFFIX}}/api/env | jq -r '.vars.REVISION_COMMIT_ID')
         if [[ $result != ${{ steps.params.outputs.commit_id }} ]]; then
           echo "Test failed"
           exit 1
@@ -68,9 +68,9 @@ jobs:
       id: switch_prod_label
       uses: azure/arm-deploy@v1
       with:
-        resourceGroupName: ${{ env.AZURE_RG }}
+        resourceGroupName: ${{ vars.AZURE_RG }}
         template: bicep/main.bicep
         deploymentName: set-prod-label-${{ steps.params.outputs.commit_id }}
-        parameters: 'bgServiceName=${{ env.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.new_prod_label }}'
+        parameters: 'bgServiceName=${{ vars.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.new_prod_label }}'
         deploymentMode: Incremental
         failOnStdErr: true
