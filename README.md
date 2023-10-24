@@ -9,7 +9,7 @@ locally to make the bash script executable. Once you commit and push the change 
 
 ## Create environment and first version of app
 ```bash
-az deployment group create --resource-group <name-of-resource-group> --template-file "./bicep/main.bicep" --parameters bgServiceName="bgappservice" 
+az deployment group create --resource-group <name-of-resource-group> --template-file "./bicep/main.bicep" --parameters firstDeployment=true bgServiceName="bgappservice" 
 ```
 
 ## create spn for resource group access to use in github action

@@ -53,7 +53,7 @@ param bgServiceName string
 param bgPortNumber int = 5028
 
 @description('Optional. Parameter to set if First Deployment')
-param firstDeployment bool = true 
+param firstDeployment bool = false 
 
 // ------------------
 //    RESOURCES
