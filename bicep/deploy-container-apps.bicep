@@ -7,8 +7,13 @@ targetScope = 'resourceGroup'
 @description('The location where the resources will be created.')
 param location string = resourceGroup().location
 
-@description('The tags to be assigned to the created resources.')
-param tags object = {}
+@description('Optional. The tags to be assigned to the created resources.')
+param tags object = {
+  solution: 'bluegreen'
+  shortName: 'bg'
+  iac: 'bicep'
+  environment: 'aca'
+}
 
 @description('The name of the container apps environment.')
 param containerAppsEnvironmentName string
@@ -17,7 +22,7 @@ param containerAppsEnvironmentName string
 param bgServiceName string
 
 @description('The target port for the service.')
-param bgPortNumber int
+param bgPortNumber int = 5028
 
 @description('The name of the container registry.')
 param containerRegistryName string
@@ -25,7 +30,7 @@ param containerRegistryName string
 @minLength(1)
 @maxLength(64)
 @description('CommitId for blue revision')
-param blueCommitId string
+param blueCommitId string = 'initial'
 
 @maxLength(64)
 @description('CommitId for green revision')
@@ -72,7 +77,7 @@ resource containerRegistryPullRoleAssignment 'Microsoft.Authorization/roleAssign
   }
 }
 
-module bgService 'container-apps/bg-service.bicep' = {
+module bgService 'modules/container-apps/bg-service.bicep' = {
   name: 'bg-service-${uniqueString(resourceGroup().id)}'
   params: {
     bgServiceName: bgServiceName

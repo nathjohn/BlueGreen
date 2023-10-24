@@ -39,9 +39,9 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: ${{ vars.AZURE_RG }}
-        template: bicep/main.bicep
+        template: bicep/deploy-container-apps.bicep
         deploymentName: deploy-${{ steps.params.outputs.commit_id }}
-        parameters: 'bgServiceName=${{ vars.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.cur_prod_label }} containerAppsEnvironmentName=${{ vars.AZURE_ENVIRONMENT_NAME }}'
+        parameters: 'bgServiceName=${{ vars.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.cur_prod_label }} containerAppsEnvironmentName=${{ vars.AZURE_ENVIRONMENT_NAME }} containerRegistry=${{ vars.AZURE_ACR_NAME}}'
         deploymentMode: Incremental
         failOnStdErr: true
 
@@ -69,8 +69,8 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: ${{ vars.AZURE_RG }}
-        template: bicep/main.bicep
+        template: bicep/deploy-container-apps.bicep
         deploymentName: set-prod-label-${{ steps.params.outputs.commit_id }}
-        parameters: 'bgServiceName=${{ vars.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.new_prod_label }}'
+        parameters: 'bgServiceName=${{ vars.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.new_prod_label }} containerRegistry=${{ vars.AZURE_ACR_NAME}}'
         deploymentMode: Incremental
         failOnStdErr: true
