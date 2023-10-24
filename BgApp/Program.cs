@@ -19,6 +19,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+var id = Environment.GetEnvironmentVariable("REVISION_COMMIT_ID") ?? "unknown";
+app.MapGet("/api/revision", () => id);
+
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
