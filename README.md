@@ -23,6 +23,7 @@ Save the output of the above command in a GitHub secret called AZURE_CREDENTIALS
 ## Github actions
 Set the following secrets in your GitHub repository:
 * `AZURE_CREDENTIALS` - Azure service principal credentials with permissions to create and manage resources in your subscription and resource group. Refer to [Azure login action with a service principal secret](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-a-service-principal-secret).
+Add the following environment variables to your GitHub repository:
 * `AZURE_ENVIRONMENT_NAME` - the short name of the existing Azure Container Apps environment where the sample app will be deployed to, for example `mycontainerappenv`. Do not use the full environment ARM resource id.
 * `AZURE_RG` - the name of the existing Azure resource group where the sample app will be deployed to.
 * `AZURE_APP_NAME` - the name of the containerapp where the sample app will be deployed to.
