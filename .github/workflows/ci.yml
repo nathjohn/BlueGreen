@@ -64,7 +64,7 @@ jobs:
     #  shell: bash
 
     # Switch production label to the current release
-    - name: swtich production label
+    - name: switch production label
       id: switch_prod_label
       uses: azure/arm-deploy@v1
       with:
