@@ -6,6 +6,9 @@ on:
     types: [closed]
     branches:
       - main
+    #paths:
+    #  - "BgApp/**"
+
 name: Blue-Green Deployment
 jobs:
   deploy:
@@ -71,6 +74,6 @@ jobs:
         resourceGroupName: ${{ vars.AZURE_RG }}
         template: bicep/deploy-container-apps.bicep
         deploymentName: set-prod-label-${{ steps.params.outputs.commit_id }}
-        parameters: 'bgServiceName=${{ vars.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.new_prod_label }} containerRegistryName=${{ vars.AZURE_ACR_NAME}}'
+        parameters: 'bgServiceName=${{ vars.AZURE_APP_NAME }} blueCommitId=${{ steps.params.outputs.blue_commit_id }} greenCommitId=${{ steps.params.outputs.green_commit_id }} latestCommitId=${{ steps.params.outputs.commit_id }} productionLabel=${{ steps.params.outputs.new_prod_label }} containerAppsEnvironmentName=${{ vars.AZURE_ENVIRONMENT_NAME }} containerRegistryName=${{ vars.AZURE_ACR_NAME}}'
         deploymentMode: Incremental
         failOnStdErr: true
