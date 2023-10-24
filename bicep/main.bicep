@@ -52,14 +52,11 @@ param bgServiceName string
 @description('The target port for the service.')
 param bgPortNumber int = 5028
 
-@description('Optional. Parameter to set if First Deployment')
-param firstDeployment bool = false 
-
 // ------------------
 //    RESOURCES
 // ------------------
 
-module containerAppsEnvironment 'modules/container-apps-environment.bicep' = if (firstDeployment) {
+module containerAppsEnvironment 'modules/container-apps-environment.bicep' =  {
   name: containerAppsEnvironmentName
   params: {
     location: location
@@ -70,7 +67,7 @@ module containerAppsEnvironment 'modules/container-apps-environment.bicep' = if 
   }
 }
 
-module acr 'modules/container-registry.bicep' = if (firstDeployment) {
+module acr 'modules/container-registry.bicep' =  {
   name: 'acr-${uniqueString(resourceGroup().id)}'
   params: {
     acrName: 'acr${uniqueString(resourceGroup().id)}'
@@ -92,7 +89,6 @@ module containerApps 'modules/container-apps.bicep' = {
     greenCommitId: greenCommitId
     latestCommitId: latestCommitId
     productionLabel: productionLabel
-    firstDeployment: firstDeployment
   }
   dependsOn: [
     containerAppsEnvironment

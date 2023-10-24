@@ -22,9 +22,6 @@ param bgPortNumber int
 @description('The name of the container registry.')
 param containerRegistryName string
 
-@description('Optional. Parameter to set if First Deployment')
-param firstDeployment bool
-
 @minLength(1)
 @maxLength(64)
 @description('CommitId for blue revision')
@@ -65,7 +62,7 @@ resource containerUserAssignedManagedIdentity 'Microsoft.ManagedIdentity/userAss
   tags: tags
 }
 
-resource containerRegistryPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = if((!empty(containerRegistryName)) && firstDeployment) {
+resource containerRegistryPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = if(!empty(containerRegistryName)) {
   name: guid(subscription().id, containerRegistry.id, containerUserAssignedManagedIdentity.id) 
   scope: containerRegistry
   properties: {
