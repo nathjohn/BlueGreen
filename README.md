@@ -12,6 +12,14 @@ locally to make the bash script executable. Once you commit and push the change 
 az deployment group create --resource-group <name-of-resource-group> --template-file "./bicep/main.bicep" --parameters bgServiceName="bgappservice" 
 ```
 
+## create spn for resource group access to use in github action
+```bash
+az ad sp create-for-rbac --name bg123 --role contributor --scopes /subscriptions/{subscription-id}/resourceGroups/exampleRG --json-auth
+```
+
+
+Save the output of the above command in a GitHub secret called AZURE_CREDENTIALS in your GitHub repository.
+
 ## Github actions
 Set the following secrets in your GitHub repository:
 * `AZURE_CREDENTIALS` - Azure service principal credentials with permissions to create and manage resources in your subscription and resource group. Refer to [Azure login action with a service principal secret](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-a-service-principal-secret).
