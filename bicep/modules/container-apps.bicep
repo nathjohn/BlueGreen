@@ -65,7 +65,7 @@ resource containerUserAssignedManagedIdentity 'Microsoft.ManagedIdentity/userAss
   tags: tags
 }
 
-resource containerRegistryPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = if(!empty(containerRegistryName) && firstDeployment) {
+resource containerRegistryPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = if((!empty(containerRegistryName)) && firstDeployment) {
   name: guid(subscription().id, containerRegistry.id, containerUserAssignedManagedIdentity.id) 
   scope: containerRegistry
   properties: {
