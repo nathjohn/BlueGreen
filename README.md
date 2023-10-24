@@ -1,6 +1,6 @@
 [![Blue-Green Deployment](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/ci.yml)
 
-# BlueGreen
+# BlueGreen repo
 
 ## Create environment and first version of app
 ```bash
