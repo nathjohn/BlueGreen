@@ -60,6 +60,8 @@ jobs:
         if [[ $result != ${{ steps.params.outputs.commit_id }} ]]; then
           echo "Test failed"
           exit 1
+        else
+          echo "Test passed"
         fi
       shell: bash
 
