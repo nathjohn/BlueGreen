@@ -21,7 +21,7 @@ After you test and verify the new revision, you can then point production traffi
 
 ## Create environment 
 
-This will create a new Azure ContainerApps enironment as well as a new Azure Container Registry. The Azure Container Registry will be used to host the sample app image.
+This will create a new Azure ContainerApps enironment as well as a new Azure Container Registry. It will also deploy an initial version of the sample app to the environment.
 
 ```bash
 az deployment group create --resource-group <name-of-resource-group> --template-file "./bicep/deploy-infra.bicep" 
