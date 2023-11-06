@@ -20,8 +20,12 @@ After you test and verify the new revision, you can then point production traffi
 | Role Change | The roles of the **blue** and **green** revisions change after a successful deployment to the **green** revision. During the next release cycle, the **green** revision represents the stable production environment while the new version of the application code is deployed and tested in the **blue** revision. |
 
 ## Create environment 
+Create a resource group for the environment. The following will create a new resource group in the `northeurope` region.
+```bash	
+az group create --name <name-of-resource-group> --location northeurope
+```
 
-This will create a new Azure ContainerApps enironment as well as a new Azure Container Registry. It will also deploy an initial version of the sample app to the environment.
+Then use the following to create a new Azure ContainerApps enironment as well as a new Azure Container Registry. It will also deploy an initial version of the sample app to the environment.
 
 ```bash
 az deployment group create --resource-group <name-of-resource-group> --template-file "./bicep/deploy-infra.bicep" 
@@ -67,3 +71,5 @@ Run
 git update-index --chmod=+x .\infra\set-params.sh         
 ``` 
 locally to make the bash script executable. Once you commit and push the change to your GitHub repository the script will be allowed to run in your GitHub action.
+
+## Make changes to the sample app and push the code. When you create a PR an merge it to main branch the GitHub action will run and deploy the sample app to the Azure ContainerApps environment.
