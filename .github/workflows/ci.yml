@@ -3,8 +3,8 @@ on:
     types: [closed]
     branches:
       - main
-    #paths:
-    #  - "BgApp/**"
+    paths:
+      - "BgApp/**"
 
 name: Blue-Green Deployment
 jobs:
