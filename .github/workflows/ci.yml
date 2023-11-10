@@ -4,10 +4,29 @@ on:
     branches:
       - main
     paths:
-      - "BgApp/**"
+      - "src/BgApp/**"
+      - "tests/BgApp.Tests/**"
 
 name: Blue-Green Deployment
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    #chekout the code
+    - name: Checkout
+      uses: actions/checkout@main
+
+    # Restore dependencies
+    - name: Restore dependencies
+      run: dotnet restore BgApp/BgApp.csproj
+
+    # Build the app
+    - name: Build
+      run: dotnet build --no-restore 
+
+    - name: Run tests
+      run: dotnet test --no-build
   deploy:
     runs-on: ubuntu-latest
     steps:
