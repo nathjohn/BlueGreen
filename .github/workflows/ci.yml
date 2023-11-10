@@ -5,7 +5,7 @@ on:
       - main
     paths:
       - "src/BgApp/**"
-      - "tests/BgApp.Tests/**"
+      - "test/BgApp.Tests/**"
 
 name: Blue-Green Deployment
 jobs:
