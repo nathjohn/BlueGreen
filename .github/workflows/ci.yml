@@ -19,7 +19,7 @@ jobs:
 
     # Restore dependencies
     - name: Restore dependencies
-      run: dotnet restore BgApp/BgApp.csproj
+      run: dotnet restore 
 
     # Build the app
     - name: Build
