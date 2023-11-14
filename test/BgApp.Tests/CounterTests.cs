@@ -2,6 +2,10 @@ namespace BgApp.Tests;
 
 public class CounterTests
 {
+    /// <summary>
+    /// Tests that the Counter component increments the count when the button is clicked.
+    /// More tests should be added
+    /// </summary>
     [Fact]
     public void CounterShouldIncrementWhenClicked()
     {
