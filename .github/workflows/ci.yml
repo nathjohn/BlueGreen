@@ -23,10 +23,11 @@ jobs:
 
     # Build the app
     - name: Build
-      run: dotnet build --no-restore 
+      run: dotnet build --no-restore
 
     - name: Run tests
       run: dotnet test --no-build
+
   deploy:
     runs-on: ubuntu-latest
     steps:
