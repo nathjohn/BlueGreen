@@ -43,7 +43,7 @@ Save the output of the above command in a GitHub secret called `AZURE_CREDENTIAL
 
 
 
-## Github actions
+## Github actions (add infra)
 
 The values from the `az deployment group create` command can be retrieved from the Azure portal or CLI and added.
 
