@@ -46,12 +46,12 @@
             "dockerBuild": {
                 "tag": "bluegreen:dev",
                 "target": "base",
-                "dockerfile": "${workspaceFolder}/BgApp/Dockerfile",
+                "dockerfile": "${workspaceFolder}/src/BgApp/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/BgApp/BgApp.csproj"
+                "appProject": "${workspaceFolder}/src/BgApp/BgApp.csproj"
             }
         },
         {
@@ -62,7 +62,7 @@
             ],
             "dockerBuild": {
                 "tag": "bluegreen:latest",
-                "dockerfile": "${workspaceFolder}/BgApp/Dockerfile",
+                "dockerfile": "${workspaceFolder}/src/BgApp/Dockerfile",
                 "context": "${workspaceFolder}",
                 "platform": {
                     "os": "linux",
@@ -71,7 +71,7 @@
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/BgApp/BgApp.csproj"
+                "appProject": "${workspaceFolder}/src/BgApp/BgApp.csproj"
             }
         },
         {
@@ -82,7 +82,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/BgApp/BgApp.csproj",
+                "appProject": "${workspaceFolder}/src/BgApp/BgApp.csproj",
                 "enableDebugging": true
             }
         },
@@ -94,7 +94,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/BgApp/BgApp.csproj"
+                "appProject": "${workspaceFolder}/src/BgApp/BgApp.csproj"
             }
         }
     ]

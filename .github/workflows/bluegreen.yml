@@ -59,6 +59,7 @@ jobs:
       id: deploy
       uses: azure/arm-deploy@v1
       with:
+        scope: ${{ vars.AZURE_RG }}
         resourceGroupName: ${{ vars.AZURE_RG }}
         template: infrastructure/bicep/deploy-container-apps.bicep
         deploymentName: deploy-${{ steps.params.outputs.commit_id }}
@@ -91,6 +92,7 @@ jobs:
       id: switch_prod_label
       uses: azure/arm-deploy@v1
       with:
+        scope: ${{ vars.AZURE_RG }}
         resourceGroupName: ${{ vars.AZURE_RG }}
         template: infrastructure/bicep/deploy-container-apps.bicep
         deploymentName: set-prod-label-${{ steps.params.outputs.commit_id }}

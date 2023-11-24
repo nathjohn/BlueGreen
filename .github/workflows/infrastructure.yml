@@ -10,12 +10,15 @@ on:
 name: Deploy infrastructure
 jobs:
  deploy:
+  runs-on: ubuntu-latest
+  steps:
     #chekout the code
     - name: Checkout
       uses: actions/checkout@main
 
     # Login to Azure
     - name: Login via Azure CLI
+      id: login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -25,8 +28,9 @@ jobs:
       id: deploy
       uses: azure/arm-deploy@v1
       with:
-          resourceGroupName: ${{ vars.AZURE_RG }}
-          template: infrastructure/bicep/deploy-container-infra.bicep
-          deploymentName: deploy-infra--${{ steps.params.outputs.commit_id }}
-          deploymentMode: Incremental
-          failOnStdErr: true
+        scope: ${{ vars.AZURE_RG }}
+        resourceGroupName: ${{ vars.AZURE_RG }}
+        template: infrastructure/bicep/deploy-container-infra.bicep
+        deploymentName: deploy-infra--${{ steps.params.outputs.commit_id }}
+        deploymentMode: Incremental
+        failOnStdErr: true

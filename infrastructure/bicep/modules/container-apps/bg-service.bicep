@@ -52,6 +52,7 @@ var currentCommitId = !empty(latestCommitId) ? latestCommitId : blueCommitId
 // ------------------
 // MODULES
 // ------------------
+// Build the image and deploy it to the container registry
 module buildbg 'br/public:deployment-scripts/build-acr:2.0.1' = {
   name: bgServiceName
   params: {
@@ -72,7 +73,7 @@ module buildbg 'br/public:deployment-scripts/build-acr:2.0.1' = {
 resource bgService 'Microsoft.App/containerApps@2023-05-02-preview' = {
   name: bgServiceName
   location: location
-  tags: union(tags, { 
+  tags: union(tags, {
     containerApp: bgServiceName
     blueCommitId: blueCommitId
     greenCommitId: greenCommitId
