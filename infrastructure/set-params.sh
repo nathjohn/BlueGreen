@@ -25,7 +25,7 @@ echo "Current Green Commit ID: $cur_green_commit_id"
 
 # Handle the case when the workflow is re-run for the same commit id that is already in production
 # We do not want to deploy the same commit id again into another label
-if [ $cur_prod_label = 'blue' ] && [ $cur_blue_commit_id = $commit_id ];
+if [ "$cur_prod_label" = "blue" ] && [ "$cur_blue_commit_id" = "$commit_id" ];
 then
     echo "Blue is a production label and the current commit id is the same as the blue commit id"
     echo "cur_prod_label=blue" >> $GITHUB_OUTPUT
@@ -36,7 +36,7 @@ then
     exit 0
 fi
 
-if [ $cur_prod_label = 'green' ] && [ $cur_green_commit_id = $commit_id ];
+if [ "$cur_prod_label" = "green" ] && [ "$cur_green_commit_id" = "$commit_id" ];
 then
     echo "Green is a production label and the current commit id is the same as the green commit id"
     echo "cur_prod_label=green" >> $GITHUB_OUTPUT
