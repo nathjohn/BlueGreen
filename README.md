@@ -8,7 +8,6 @@
 
 [![CodeQL](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/codeql.yml/badge.svg)](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/codeql.yml)
 
-
 Once green environment is tested, the live traffic is directed to it, and the blue environment is used to deploy a new application version during next deployment cycle.
 
 | Revision | Description |

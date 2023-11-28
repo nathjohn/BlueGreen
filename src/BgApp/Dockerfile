@@ -5,7 +5,7 @@ EXPOSE 5028
 ENV ASPNETCORE_URLS=http://+:5028
 
 USER app
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
 WORKDIR /src
 COPY ["src/BgApp/BgApp.csproj", "src/BgApp/"]
