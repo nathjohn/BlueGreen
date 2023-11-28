@@ -51,7 +51,7 @@ jobs:
         GITHUB_SHA: ${{ github.sha }}
         RESOURCE_GROUP: ${{ vars.AZURE_RG }}
         APP_NAME: ${{ vars.AZURE_APP_NAME }}
-      run: ./infra/set-params.sh
+      run: ./infrastructure/set-params.sh
       shell: bash
 
     # Deploy current commit id to a non-production label so it can be tested
