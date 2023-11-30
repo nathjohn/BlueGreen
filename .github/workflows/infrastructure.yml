@@ -30,7 +30,7 @@ jobs:
       with:
         scope: resourcegroup
         resourceGroupName: ${{ vars.AZURE_RG }}
-        template: infrastructure/bicep/deploy-container-infra.bicep
+        template: infrastructure/bicep/deploy-infra.bicep
         deploymentName: deploy-infra--${{ steps.params.outputs.commit_id }}
         deploymentMode: Incremental
         failOnStdErr: true
