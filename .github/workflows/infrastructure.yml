@@ -31,6 +31,6 @@ jobs:
         scope: resourcegroup
         resourceGroupName: ${{ vars.AZURE_RG }}
         template: infrastructure/bicep/deploy-infra.bicep
-        deploymentName: deploy-infra--${{ steps.params.outputs.commit_id }}
+        deploymentName: deploy-infra--${{ github.sha }}
         deploymentMode: Incremental
         failOnStdErr: true
