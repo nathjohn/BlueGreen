@@ -59,7 +59,7 @@ module buildbg 'br/public:deployment-scripts/build-acr:2.0.1' = {
     AcrName: containerRegistryName
     location: location
     gitRepositoryUrl:  'https://github.com/mbn-ms-dk/BlueGreen.git'
-    dockerfileDirectory: 'BgApp'
+    dockerfileDirectory: 'src/BgApp'
     imageName: 'bgapp'
     imageTag: currentCommitId
     cleanupPreference: 'Always'
