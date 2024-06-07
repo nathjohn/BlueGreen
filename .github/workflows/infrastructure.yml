@@ -19,7 +19,7 @@ jobs:
     # Login to Azure
     - name: Login via Azure CLI
       id: login
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
