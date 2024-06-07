@@ -57,7 +57,7 @@ jobs:
     # Deploy current commit id to a non-production label so it can be tested
     - name: Deploy current release
       id: deploy
-      uses: azure/arm-deploy@v1
+      uses: azure/arm-deploy@v2
       with:
         scope: resourcegroup
         resourceGroupName: ${{ vars.AZURE_RG }}
@@ -90,7 +90,7 @@ jobs:
     # Switch production label to the current release
     - name: switch production label
       id: switch_prod_label
-      uses: azure/arm-deploy@v1
+      uses: azure/arm-deploy@v2
       with:
         scope: resourcegroup
         resourceGroupName: ${{ vars.AZURE_RG }}

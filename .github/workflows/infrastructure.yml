@@ -26,7 +26,7 @@ jobs:
     # Deploy infrastructure
     - name: Deploy infrastructure
       id: deploy
-      uses: azure/arm-deploy@v1
+      uses: azure/arm-deploy@v2
       with:
         scope: resourcegroup
         resourceGroupName: ${{ vars.AZURE_RG }}
