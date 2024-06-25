@@ -62,13 +62,13 @@ resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-08-01-pr
 }
 
 resource containerUserAssignedManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
-  name: 'aca-user-identity-${uniqueString(resourceGroup().id)}'
+  name: 'aca-useridentity-${uniqueString(resourceGroup().id)}'
   location: location
   tags: tags
 }
 
 resource containerRegistryPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = if(!empty(containerRegistryName)) {
-  name: guid(subscription().id, containerRegistry.id, containerUserAssignedManagedIdentity.id) 
+  name: guid(subscription().id, containerRegistry.id, containerUserAssignedManagedIdentity.id)
   scope: containerRegistry
   properties: {
     principalId: containerUserAssignedManagedIdentity.properties.principalId
