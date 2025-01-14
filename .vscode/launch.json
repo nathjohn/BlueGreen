@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/BgApp/bin/Debug/net8.0/BgApp.dll",
+            "program": "${workspaceFolder}/src/BgApp/bin/Debug/net8.0/BgApp.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/BgApp",
+            "cwd": "${workspaceFolder}/src/BgApp",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
