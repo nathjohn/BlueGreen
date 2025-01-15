@@ -6,6 +6,7 @@ on:
       paths:
         - ".github/workflows/infrastructure.yml"
         - "infrastructure/**"
+    workflow_dispatch:    
 
 name: Deploy infrastructure
 jobs:
