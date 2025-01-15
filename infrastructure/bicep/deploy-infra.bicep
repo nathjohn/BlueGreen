@@ -66,6 +66,5 @@ module deployFirstVersion 'deploy-container-apps.bicep' = {
   }
   dependsOn: [
     containerAppsEnvironment
-    acr
   ]
 }
