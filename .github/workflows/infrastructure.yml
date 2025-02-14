@@ -6,9 +6,12 @@ on:
       paths:
         - ".github/workflows/infrastructure.yml"
         - "infrastructure/**"
-    workflow_dispatch:    
+    workflow_dispatch:
 
 name: Deploy infrastructure
+permissions:
+    id-token: write
+    contents: read
 jobs:
  deploy:
   runs-on: ubuntu-latest
@@ -17,12 +20,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
 
-    # Login to Azure
-    - name: Login via Azure CLI
+    # Login to Azure with OIDC
+    - name: Login via with OIDC
       id: login
       uses: azure/login@v2
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     # Deploy infrastructure
     - name: Deploy infrastructure
