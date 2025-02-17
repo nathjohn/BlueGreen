@@ -2,8 +2,6 @@
 
 [Blue-Green Deployment](https://martinfowler.com/bliki/BlueGreenDeployment.html) is a software release strategy that aims to minimize downtime and reduce the risk associated with deploying new versions of an application. In a blue-green deployment, two identical environments, referred to as "blue" and "green," are set up. One environment (blue) is running the current application version and one environment (green) is running the new application version.
 
-[![.github/workflows/infrastructure.yml](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/infrastructure.yml/badge.svg)](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/infrastructure.yml)
-
 [![Blue-Green Deployment](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/bluegreen.yml/badge.svg)](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/bluegreen.yml)
 
 [![CodeQL](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/codeql.yml/badge.svg)](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/codeql.yml)
