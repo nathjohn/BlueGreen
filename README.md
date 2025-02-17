@@ -26,7 +26,9 @@ After you test and verify the new revision, you can then point production traffi
 The code snippets demonstrate the process of setting up a Blue-Green deployment using Azure ContainerApps and GitHub Actions. Make sure to follow the instructions carefully and set the required secrets and environment variables in your GitHub repository. Once everything is set up, you can make changes to the sample app, create a pull request, and merge it to the main branch to trigger the deployment process.
 
 ## Create environment
+
 Create a resource group for the environment. The following will create a new resource group in the `swedencentral` region.
+
 ```bash
 az group create --name <name-of-resource-group> --location swedencentral
 ```
