@@ -1,12 +1,12 @@
 # BlueGreen
 
-[Blue-Green Deployment](https://martinfowler.com/bliki/BlueGreenDeployment.html) is a software release strategy that aims to minimize downtime and reduce the risk associated with deploying new versions of an application. In a blue-green deployment, two identical environments, referred to as "blue" and "green," are set up. One environment (blue) is running the current application version and one environment (green) is running the new application version.
-
 [![Blue-Green Deployment](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/bluegreen.yml/badge.svg)](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/bluegreen.yml)
 
 [![CodeQL](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/codeql.yml/badge.svg)](https://github.com/mbn-ms-dk/BlueGreen/actions/workflows/codeql.yml)
 
-Once green environment is tested, the live traffic is directed to it, and the blue environment is used to deploy a new application version during next deployment cycle.
+[Blue-Green Deployment](https://martinfowler.com/bliki/BlueGreenDeployment.html) is a software release strategy that aims to minimize downtime and reduce the risk associated with deploying new versions of an application. In a blue-green deployment, two identical environments, referred to as "blue" and "green," are set up. One environment (blue) is running the current application version and one environment (green) is running the new application version.
+
+Once the  green environment is tested, the live traffic is directed to it, and the blue environment is used to deploy a new application version during next deployment cycle.
 
 | Revision | Description |
 | -------- | -------- |
@@ -81,11 +81,13 @@ For this setup, we will use a user-assigned managed identity to authenticate the
 
 Follow the guide described [here](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities?pivots=identity-mi-methods-azp)
 
-Use the following values from your Microsoft Entra managed identity for your GitHub workflow:
+Use the following values as secrets from your Microsoft Entra managed identity for your GitHub workflow:
 
-`AZURE_CLIENT_ID` the managed identity Client ID
+`AZURE_CLIENT_ID` the managed identity Client ID.
 
 `AZURE_SUBSCRIPTION_ID` the Subscription ID.
+
+`AZURE_TENANT_ID` the Tenant ID.
 
 The following screenshot demonstrates how to copy the managed identity ID and subscription ID.
 
