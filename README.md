@@ -95,6 +95,9 @@ The following screenshot demonstrates how to copy the managed identity ID and su
 
 AZURE_TENANT_ID the Directory (tenant) ID. [Learn how to find your Microsoft Entra tenant ID.](https://learn.microsoft.com/en-us/azure/active-directory-b2c/tenant-management-read-tenant-name)
 
+Give the managed identity the following permissions:
+owner role on the resource group where the Azure Container Apps environment is deployed.
+
 ## set params script for github actions
 
 This script id called from the GitHub action.
