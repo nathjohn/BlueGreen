@@ -45,6 +45,8 @@ param productionLabel string = 'blue'
 // ------------------
 
 var containerRegistryPullRoleGuid='7f951dda-4ed3-4680-a7ca-43fe172d538d'
+var containerRegistryName = 'acrl2vcut6x7hxom' // Pre-existing shared container registry, created for the session
+var containerRegistryResourceGroup = 'shared-acr' // Pre-existing shared container registry resource group, created for the session
 
 // ------------------
 // RESOURCES
@@ -54,9 +56,9 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01'
   name: containerAppsEnvironmentName
 }
 
-resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-08-01-preview' existing = {
-  name: 'acrl2vcut6x7hxom'
-  scope: resourceGroup('shared-acr')
+ resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-08-01-preview' existing = {
+   name: containerRegistryName
+   scope: resourceGroup(containerRegistryResourceGroup)
 }
 
 resource containerUserAssignedManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
@@ -68,10 +70,10 @@ resource containerUserAssignedManagedIdentity 'Microsoft.ManagedIdentity/userAss
 
 module containerRegistryPullRoleAssignment 'modules/container-reg/acr.bicep' = {
   name: 'acr-role-assignment'
-  scope: resourceGroup('shared-acr')
+  scope: resourceGroup(containerRegistryResourceGroup)
   params: {
-    containerRegistryName: containerRegistry.name
     containerRegistryPullRoleGuid: containerRegistryPullRoleGuid
+    containerRegistryName: containerRegistryName
     containerUserAssignedManagedIdentityId: containerUserAssignedManagedIdentity.id
     containerUserAssignedManagedIdentityPrincipalId: containerUserAssignedManagedIdentity.properties.principalId
   }
