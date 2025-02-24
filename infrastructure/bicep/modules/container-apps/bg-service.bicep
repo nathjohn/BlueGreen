@@ -49,20 +49,10 @@ param productionLabel string = 'blue'
 
 var currentCommitId = !empty(latestCommitId) ? latestCommitId : blueCommitId
 
-// ------------------
-// MODULES
-// ------------------
-// Build the image and deploy it to the container registry
-module buildbg 'br/public:deployment-scripts/build-acr:2.0.1' = {
-  name: bgServiceName
-  params: {
-    AcrName: containerRegistryName
-    location: location
-    gitRepositoryUrl:  'https://github.com/mbn-ms-dk/BlueGreen.git'
-    dockerfileDirectory: 'src/BgApp'
-    imageName: 'bgapp'
-    imageTag: currentCommitId
-    cleanupPreference: 'Always'
+//use a preexisting container image in a preexisting container registry
+var buildbg = {
+  outputs: {
+    acrImage: 'acrl2vcut6x7hxom.azurecr.io/bgapp:initial'
   }
 }
 

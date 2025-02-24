@@ -46,22 +46,12 @@ module containerAppsEnvironment 'modules/container-apps-environment.bicep' =  {
   }
 }
 
-module acr 'modules/container-registry.bicep' =  {
-  name: 'acr-${uniqueString(resourceGroup().id)}'
-  params: {
-    acrName: 'acr${uniqueString(resourceGroup().id)}'
-    location: location
-    tags: tags
-  }
-}
-
 //This deploy an initial release of the app
 module deployFirstVersion 'deploy-container-apps.bicep' = {
   name: 'deploy-first-version'
   params: {
     location: location
     containerAppsEnvironmentName: containerAppsEnvironmentName
-    containerRegistryName: acr.outputs.acrName
     bgServiceName: 'bgappservice'
   }
   dependsOn: [

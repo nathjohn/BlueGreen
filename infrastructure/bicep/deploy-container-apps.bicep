@@ -24,9 +24,6 @@ param bgServiceName string
 @description('The target port for the service.')
 param bgPortNumber int = 5028
 
-@description('The name of the container registry.')
-param containerRegistryName string
-
 @minLength(1)
 @maxLength(64)
 @description('CommitId for blue revision')
@@ -58,7 +55,8 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01'
 }
 
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-08-01-preview' existing = {
-  name: containerRegistryName
+  name: 'acrl2vcut6x7hxom'
+  scope: resourceGroup('shared-acr')
 }
 
 resource containerUserAssignedManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
@@ -67,13 +65,15 @@ resource containerUserAssignedManagedIdentity 'Microsoft.ManagedIdentity/userAss
   tags: tags
 }
 
-resource containerRegistryPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = if(!empty(containerRegistryName)) {
-  name: guid(subscription().id, containerRegistry.id, containerUserAssignedManagedIdentity.id)
-  scope: containerRegistry
-  properties: {
-    principalId: containerUserAssignedManagedIdentity.properties.principalId
-    roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', containerRegistryPullRoleGuid)
-    principalType: 'ServicePrincipal'
+
+module containerRegistryPullRoleAssignment 'modules/container-reg/acr.bicep' = {
+  name: 'acr-role-assignment'
+  scope: resourceGroup('shared-acr')
+  params: {
+    containerRegistryName: containerRegistry.name
+    containerRegistryPullRoleGuid: containerRegistryPullRoleGuid
+    containerUserAssignedManagedIdentityId: containerUserAssignedManagedIdentity.id
+    containerUserAssignedManagedIdentityPrincipalId: containerUserAssignedManagedIdentity.properties.principalId
   }
 }
 
