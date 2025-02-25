@@ -41,6 +41,32 @@ Now you will have the repository locally on your machine.
 
 Open the local folder on your machine in Visual Studio Code.
 
+## Check & Get access
+Check you can access the Azure subscription via the portal [CloudTechLearningArea Sandbox](https://portal.azure.com/?feature.msaljs=true#@simcorp.com/resource/subscriptions/545d127a-0109-4129-b384-693504b5753f/overview)
+
+Go to [Access control (IAM)](https://portal.azure.com/?feature.msaljs=true#@simcorp.com/resource/subscriptions/545d127a-0109-4129-b384-693504b5753f/users) and check on the "Check Access" tab you have the following roles assigned:
+- Reader - SC LZ CloudTechLearningArea Sandbox Reader (needed in order to view the portal)
+- Writer - SC LZ CloudTechLearningArea Sandbox LandingZone Writer (needed to create the container apps resource - needs to be activated first)
+
+On the same page/tab activate the writer role by clicking "Activate" (in the "Action" column - Check Access tab) on the "SC LZ CloudTechLearningArea Sandbox LandingZone Writer" row. Next fill in the reason text box (required) e.g. "Container Apps Session" and then activate - the activation should take a few minutes
+
+## Login to the subscription
+Before we can do anything, first you'll need to login to the subscription via az cli.
+
+```bash
+az login --tenant aa81b43f-3969-4fd4-80c9-84c411508d82
+```
+
+A list of subscriptions will be displayed, look for the following: ```CloudTechLearningArea Sandbox         545d127a-0109-4129-b384-693504b5753f  aa81b43f-3969-4fd4-80c9-84c411508d82``` and type the number of the subscription for the above.
+
+Once in you can use the below command to make sure you're in the correct subscription
+
+```bash
+az account show --query name
+```
+
+It should return `CloudTechLearningArea Sandbox`, which means you're in the correct subscription
+
 ## Create environment
 
 Create a resource group for the environment. The following will create a new resource group in the `swedencentral` region.
@@ -54,6 +80,7 @@ Then use the following to create a new Azure ContainerApps environment as well a
 ```bash
 az deployment group create --resource-group <name-of-resource-group> --template-file ".\infrastructure\bicep\deploy-infra.bicep"
 ```
+# P.S. Anything after this point can't be done in the sandbox session!
 
 ## Github actions environment variables (from add infra)
 
